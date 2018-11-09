@@ -1,10 +1,10 @@
 import Vue from "vue";
+import './plugins/element.js'
 import App from "./App.vue";
 import router from "./router";
 import store from "./store";
-import { post, get} from "./assets/js/http";
 import uTils from "./assets/js/utils";
-import './plugins/element.js'
+import { post, get} from "./assets/js/http";
 
 Vue.config.productionTip = false;
 Vue.prototype.$post = post;

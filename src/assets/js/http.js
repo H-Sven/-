@@ -3,6 +3,7 @@ import qs from "qs";
 import store from '../../store';
 import vueRouter from '../../router';
 import utils from './utils';
+import { Message } from 'element-ui';
 axios.defaults.timeout = 10000;
 axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
 axios.defaults.withCredentials = true;  //请求携带cookie
@@ -39,8 +40,8 @@ axios.interceptors.response.use(
       if (response.data.error.code == '8888') {
         vueRouter.push({ path: '/upgrade'})
       }else if (response.data.error.code == '2000') {
-        // Message.destroy()
-        // Message.warning(response.data.error.message)
+        Message.closeAll()
+        Message.warning(response.data.error.message)
         store.commit('isLogin', false)
         store.commit('setInfo', {})
         if (!router.includes(store.state.toPath)) {
@@ -57,8 +58,8 @@ axios.interceptors.response.use(
     return response;
   },
   error => {
-    // Message.destroy()
-    // Message.warning('Network Error')
+    Message.closeAll()
+    Message.warning('Network Error')
     return Promise.reject(error);
   }
 );
