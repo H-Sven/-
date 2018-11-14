@@ -12,12 +12,7 @@ export default new Vuex.Store({
     showHeader: false,
     showFooter: false,
     toPath:'',
-    otc_url:document.domain.includes('www.xxx.com') ? 'https://otc.xxx.com/#' : document.domain.includes('p-www.xxx.cc') ? 'https://p-otc.xxx.cc/#' : 'https://otc.xxx.cc/#',
-    trans_url: document.domain.includes('www.xxx.com') ? 'https://trans.xxx.com/#' : document.domain.includes('p-www.xxx.cc') ? 'https://p-trans.xxx.cc/#' : 'https://trans.xxx.cc/#',
-    www_url: document.domain.includes('www.xxx.com') ? 'https://www.xxx.com/#' : document.domain.includes('p-www.xxx.cc') ? 'https://p-www.xxx.cc/#' : 'https://www.xxx.cc/#',
-    link_url: document.domain.includes('www.xxx.com') ? 'https://www.xxx.com/' : document.domain.includes('p-www.xxx.cc') ? 'https://p-www.xxx.cc/' : 'https://www.xxx.cc/',
     api_url: !document.domain.includes('www.xxx.com') ? 'https://api1.xxx.com/w' : document.domain.includes('p-www.xxx.cc') ? 'https://p-api1.xxx.cc/w' : 'https://go-api.xxx.cc/w', //接口主地址
-    wss_push: !document.domain.includes('www.xxx.com') ? 'wss://ws.xxx.com/push' : document.domain.includes('p-www.xxx.cc') ? 'wss://ws.xxx.com/push' : 'wss://api-ws.xxx.cc/push', //websocketPush地址
   },
   //修改状态
   mutations:{
@@ -44,9 +39,6 @@ export default new Vuex.Store({
     },
   },
   getters: {
-    white_paper(state){
-      return `111`;//白皮书地址
-    },
     filterLang(state){
       switch(state.lang){
         case 'zh': return 'zh-cn';

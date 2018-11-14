@@ -7,10 +7,24 @@
 <script>
 export default {
   name: 'app',
+  provide(){
+    return {
+      reload:this.reload,
+    }
+  },
   data () {
     return {
-      value2:false,
+      isRouterAkive:true, //刷新当前路由
     }
+  },
+  methods: {
+    // 刷新路由
+    reload(){
+      this.isRouterAkive = false
+      this.$nextTick(()=>{
+        this.isRouterAkive = true
+      })
+    },
   }
 }
 </script>
