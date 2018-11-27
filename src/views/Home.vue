@@ -1,77 +1,91 @@
 <template>
   <div class="home">
-    <div id="container" style="min-width:400px;height:400px"></div>
+    <el-menu :default-active="select" @select="handleSelect" class="el-menu-vertical-demo" :collapse="false">
+      <el-menu-item index="/index">
+        <i class="iconfont icon-index"></i>
+        <span slot="title">首页</span>
+      </el-menu-item>
+      <el-menu-item index="/order">
+        <i class="iconfont icon-dingdanxuanzhong"></i>
+        <span slot="title">订单</span>
+      </el-menu-item>
+      <el-menu-item index="/assets/index">
+        <i class="iconfont icon-zichan2"></i>
+        <span slot="title">资产</span>
+      </el-menu-item>
+      <el-menu-item index="/account/index">
+        <i class="iconfont icon-touxiang"></i>
+        <span slot="title">账户</span>
+      </el-menu-item>
+    </el-menu>
+    <router-view  class="view_box"></router-view>
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
-import Highstock from 'highcharts/highstock';
-import mydata from './data.js'
 export default {
   name: "home",
-  components: {
-    
-  },
   data(){
     return {
-      highstock:null,
-      dataArr:[]
+      select:'/index',
     }
   },
   created() {
-    this.dataArr = mydata;
+    this.select = this.$store.state.toPath || '/index';
+    // this.$router.push({ path: this.select, query: {} })
   },
   mounted () {
-    this.$get('/user/getUserInfo',{}).then(res=>{
-      if (!res.code) {
-        console.log(res);
-      }else{
-        console.log(res.code);
-      }
-    })
-    console.log(Highstock);
-    this.highstock = Highstock.stockChart('container', {
-      rangeSelector : {
-        selected : 1
-      },
-      title : {
-        text : 'AAPL Stock Price'
-      },
-      scrollbar : {
-        enabled : false //关闭滚动条
-      },
-      navigator : {
-        enabled : false //关闭导航器
-      },
-      series : [{
-        name : 'AAPL Stock Price',
-        data : this.dataArr,
-        type : 'areaspline',
-        threshold : null,
-        tooltip : {
-          valueDecimals : 2
-        },
-        fillColor : {
-          linearGradient : {
-            x1: 0,
-            y1: 0,
-            x2: 0,
-            y2: 1
-          },
-          stops : [
-            [0, Highstock.getOptions().colors[0]],
-            [1, Highstock.Color(Highstock.getOptions().colors[0]).setOpacity(0).get('rgba')]
-          ]
-        }
-      }]
-    });
-    // setInterval(() => {
-    //   this.highstock.series[0].setData([1147651200000,67.79])
-    // }, 1000);
+    // this.$get('/user/getUserInfo',{}).then(res=>{
+    //   if (!res.code) {
+    //     console.log(res);
+    //   }else{
+    //     console.log(res.code);
+    //   }
+    // })
+  },
+  methods:{
+    handleSelect(index){
+      this.$store.commit('setToPath',index);
+      this.$router.push({ path: index, query: {} })
+    }
   }
 };
 </script>
 <style lang="less">
-
+@import url("../assets/css/colorConfig.less");
+.home {
+  width: 100%;
+  min-height: 100%;
+  position: relative;
+  display: flex;
+  .el-menu {
+    width: 120px;
+    background-color:@white;
+    .el-menu-item {
+      // color: @white;
+      .iconfont {
+        line-height: normal;
+        font-size: 26px;
+        margin-right: 10px;
+      }
+    }
+    .el-menu-item.is-active::after {
+      content: '';
+      display:inline-block;
+      width: 4px;
+      height: 100%;
+      position: absolute;
+      left: 0;
+      top: 0;
+      background-color: @textColor;
+    }
+  }
+  .view_box {
+    flex: 1;
+    padding: 60px;
+    padding-top: 20px;
+    padding-bottom: 0;
+  }
+}
 </style>

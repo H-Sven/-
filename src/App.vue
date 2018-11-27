@@ -1,12 +1,20 @@
 <template>
   <div id="app">
+    <my-header></my-header>
     <router-view></router-view>
+    <!-- <my-footer></my-footer> -->
   </div>
 </template>
 
 <script>
+import myHeader from './components/Header'
+// import myFooter from './components/Footer'
 export default {
   name: 'app',
+  components:{
+    myHeader,
+    // myFooter
+  },
   provide(){
     return {
       reload:this.reload,
@@ -31,11 +39,24 @@ export default {
 
 <style style="less">
 #app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+    position: relative;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    overflow-y: auto;
+  }
+  #app::-webkit-scrollbar {/*滚动条整体样式*/
+    width: 4px;     /*高宽分别对应横竖滚动条的尺寸*/
+    height: 4px;     /*高宽分别对应横竖滚动条的尺寸*/
+  }
+  #app::-webkit-scrollbar-thumb {/*滚动条里面小方块*/
+    border-radius: 5px;
+    box-shadow: inset 0 0 5px rgba(0,0,0,0.2);
+    background: #ccc;
+  }
+  #app::-webkit-scrollbar-track {/*滚动条里面轨道*/
+    box-shadow: inset 0 0 5px rgba(0,0,0,0.2);
+    border-radius: 0;
+  }
 </style>
