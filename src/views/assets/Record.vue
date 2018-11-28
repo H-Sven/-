@@ -84,7 +84,7 @@
         <el-table-column label="操作">
           <template slot-scope="scope">
             <el-button type="text">确认收款</el-button>
-            <el-button type="text" @click="routerLink('/assets/recordDetails')">详情</el-button>
+            <el-button type="text" @click="routerLink('/home/assets/recordDetails')">详情</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -159,7 +159,7 @@ export default {
     }
   },
   created() {
-    this.$emit('sendRouteName',{routeName:'提现记录',routePath:'/assets/record'})
+    this.$emit('sendRouteName',{routeName:'提现记录',routePath:'/home/assets/record'})
   },
   methods: {
     routerLink(route){

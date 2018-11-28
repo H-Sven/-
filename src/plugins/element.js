@@ -1,7 +1,6 @@
 import Vue from 'vue'
-import { 
+import {
   Dropdown,DropdownMenu,DropdownItem,
-  Menu,Submenu,MenuItem,MenuItemGroup,
   Select,Option,
   DatePicker,
   Input,
@@ -15,15 +14,17 @@ import {
   Dialog,
   Button,
   Upload,
+  Container,Header,Aside,Footer,Main,
  } from 'element-ui'
 
+Vue.use(Main)
+Vue.use(Footer)
+Vue.use(Aside)
+Vue.use(Header)
+Vue.use(Container)
 Vue.use(Dropdown)
 Vue.use(DropdownMenu)
 Vue.use(DropdownItem)
-Vue.use(Menu)
-Vue.use(Submenu)
-Vue.use(MenuItem)
-Vue.use(MenuItemGroup)
 Vue.use(Select)
 Vue.use(Option)
 Vue.use(DatePicker)

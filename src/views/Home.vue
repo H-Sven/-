@@ -1,84 +1,95 @@
 <template>
   <div class="home">
-    <el-menu :default-active="select" @select="handleSelect" class="el-menu-vertical-demo" :collapse="false">
-      <el-menu-item index="/index">
-        <i class="iconfont icon-index"></i>
-        <span slot="title">首页</span>
-      </el-menu-item>
-      <el-menu-item index="/order">
-        <i class="iconfont icon-dingdanxuanzhong"></i>
-        <span slot="title">订单</span>
-      </el-menu-item>
-      <el-menu-item index="/assets/index">
-        <i class="iconfont icon-zichan2"></i>
-        <span slot="title">资产</span>
-      </el-menu-item>
-      <el-menu-item index="/account/index">
-        <i class="iconfont icon-touxiang"></i>
-        <span slot="title">账户</span>
-      </el-menu-item>
-    </el-menu>
-    <router-view  class="view_box"></router-view>
+    <el-container>
+      <el-header>
+        <my-header></my-header>
+      </el-header>
+      <el-container>
+        <el-aside class="left_menu" :width="`${asideWidth}px`">
+          <div class="menu_item" :class="{'z-active':select === item.path}" @click="handleSelect(item.path)" v-for="(item, index) in menuArr" :key="index">
+            <i class="iconfont" :class="item.icon"></i>
+            <span class="menu_title">{{item.pathName}}</span>
+          </div>
+        </el-aside>
+        <el-container>
+          <el-main>
+            <router-view  class="view_box"></router-view>
+          </el-main>
+          <el-footer>
+            <my-footer></my-footer>
+          </el-footer>
+        </el-container>
+      </el-container>
+    </el-container>
   </div>
 </template>
-
+   
 <script>
-// @ is an alias to /src
+import myHeader from '../components/Header' 
+import myFooter from '../components/Footer'
 export default {
-  name: "home",
-  data(){
+  name : 'Home',
+  components:{
+    myHeader,
+    myFooter
+  },
+  data() {
     return {
-      select:'/index',
+      asideWidth:130,
+      menuArr:[
+        {path:'/home/index',pathName:'首页',icon:'icon-index'},
+        {path:'/home/order',pathName:'订单',icon:'icon-dingdanxuanzhong'},
+        {path:'/home/assets/index',pathName:'资产',icon:'icon-zichan2'},
+        {path:'/home/account/index',pathName:'账户',icon:'icon-touxiang'},
+      ],
+      select:'/home/index',
     }
   },
   created() {
-    this.select = this.$store.state.toPath || '/index';
-    // this.$router.push({ path: this.select, query: {} })
+    if (this.$route.path == '/home') {
+      this.$router.push({ path: '/home/index', query: {} })
+       this.select = '/home/index';
+    }else{
+      this.select = this.$store.state.toPath;
+    }
   },
-  mounted () {
-    // this.$get('/user/getUserInfo',{}).then(res=>{
-    //   if (!res.code) {
-    //     console.log(res);
-    //   }else{
-    //     console.log(res.code);
-    //   }
-    // })
-  },
-  methods:{
-    handleSelect(index){
-      this.$store.commit('setToPath',index);
-      this.$router.push({ path: index, query: {} })
+  methods: {
+    widtfun(){
+      this.asideWidth = this.asideWidth + 100
+    },
+    handleSelect(path){
+      this.select = path;
+      this.$store.commit('setToPath',path);
+      this.$router.push({ path: this.select, query: {} })
     }
   }
-};
+}
 </script>
-<style lang="less">
+<style lang='less'>
 @import url("../assets/css/colorConfig.less");
 .home {
   width: 100%;
   min-height: 100%;
   position: relative;
   display: flex;
-  .el-menu {
-    width: 120px;
-    background-color:@white;
-    .el-menu-item {
-      // color: @white;
+  .left_menu {
+    .menu_item {
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      height: 130px;
+      justify-content: center;
+      color: @textColor8;
+      font-size: 18px;
       .iconfont {
-        line-height: normal;
-        font-size: 26px;
-        margin-right: 10px;
+        font-size: 22px;
+        margin-bottom: 5px;
       }
     }
-    .el-menu-item.is-active::after {
-      content: '';
-      display:inline-block;
-      width: 4px;
-      height: 100%;
-      position: absolute;
-      left: 0;
-      top: 0;
-      background-color: @textColor;
+    .menu_item.z-active {
+      color: @textColor;
+      background-color: @chartBg;
     }
   }
   .view_box {
@@ -86,6 +97,19 @@ export default {
     padding: 60px;
     padding-top: 20px;
     padding-bottom: 0;
+  }
+  .el-header {
+    padding: 0;
+  }
+  .el-main {
+    padding: 0;
+  }
+  .el-aside {
+    background-color:@white;
+    transition: all .3s linear;
+  }
+  .el-footer {
+    padding: 0 60px;
   }
 }
 </style>

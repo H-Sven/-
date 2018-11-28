@@ -1,20 +1,12 @@
 <template>
   <div id="app">
-    <my-header></my-header>
-    <router-view></router-view>
-    <!-- <my-footer></my-footer> -->
+    <router-view class="app_view_box"></router-view>
   </div>
 </template>
 
 <script>
-import myHeader from './components/Header'
-// import myFooter from './components/Footer'
 export default {
   name: 'app',
-  components:{
-    myHeader,
-    // myFooter
-  },
   provide(){
     return {
       reload:this.reload,

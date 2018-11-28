@@ -27,7 +27,7 @@
             v-model="searchOrder">
           </el-input>
         </div>
-        <div class="right detailed hover" @click="routerLink('/assets/details')">账单明细</div>
+        <div class="right detailed hover" @click="routerLink('/home/assets/details')">账单明细</div>
       </div>
       <div class="table_box">
         <el-table :data="tableData" style="width: 100%">
@@ -98,12 +98,12 @@ export default {
     // 提现
     handleCash(index,row){
       console.log(index,row);
-      this.$router.push({ path: '/assets/withdrawal', query: {} })
+      this.$router.push({ path: '/home/assets/withdrawal', query: {} })
     },
     // 提现记录
     handleRecord(index,row){
       console.log(index,row);
-      this.$router.push({ path: '/assets/record', query: {} })
+      this.$router.push({ path: '/home/assets/record', query: {} })
     },
   }
 }

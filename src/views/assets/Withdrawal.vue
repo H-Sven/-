@@ -115,7 +115,7 @@ export default {
     }
   },
   created() {
-    this.$emit('sendRouteName',{routeName:'提现',routePath:'/assets/withdrawal'})
+    this.$emit('sendRouteName',{routeName:'提现',routePath:'/home/assets/withdrawal'})
   },
   methods: {
     // 全部

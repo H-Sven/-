@@ -3,24 +3,19 @@
     <div class="assets_title">
       <h4 v-if="$route.path == '/assets/index'">我的资产</h4>
       <el-breadcrumb separator="/" v-if="$route.path != '/assets/index'">
-        <el-breadcrumb-item :to="{ path: '/assets/index' }">我的资产</el-breadcrumb-item>
-        <el-breadcrumb-item :to="{ path: '/assets/record' }">{{routeName}}</el-breadcrumb-item>
+        <el-breadcrumb-item :to="{ path: '/home/assets/index' }">我的资产</el-breadcrumb-item>
+        <el-breadcrumb-item :to="{ path: '/home/assets/record' }">{{routeName}}</el-breadcrumb-item>
         <el-breadcrumb-item v-if="routeName2">{{routeName2}}</el-breadcrumb-item>
       </el-breadcrumb>
-      <div class="record" v-if="$route.path == '/assets/withdrawal'" @click="routeLink('/assets/record')">提现记录</div>
+      <div class="record" v-if="$route.path == '/home/assets/withdrawal'" @click="routeLink('/home/assets/record')">提现记录</div>
     </div>
     <router-view class="assets_view_box" v-on:sendRouteName="sendRouteName"></router-view>
-    <my-footer></my-footer>
   </div>
 </template>
    
 <script>
-import myFooter from '../../components/Footer'
 export default {
   name : 'Assets',
-  components:{
-    myFooter
-  },
   data() {
     return {
       routeName:'',
@@ -29,7 +24,7 @@ export default {
     }
   },
   created() {
-    console.log(this.routePath);
+    
   },
   methods: {
     routeLink(path){
@@ -47,7 +42,6 @@ export default {
 <style lang='less'>
 @import url("../../assets/css/colorConfig.less");
 .assets {
-  width: 100%;
   .assets_title {
     display: flex;
     align-items: center;

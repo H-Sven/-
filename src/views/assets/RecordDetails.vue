@@ -67,7 +67,7 @@ export default {
     clearInterval(this.clearTime);
   },
   created() {
-    this.$emit('sendRouteName',{routeName:'提现记录',routeName2:'提现详情',routePath:'/assets/recordDetails'})
+    this.$emit('sendRouteName',{routeName:'提现记录',routeName2:'提现详情',routePath:'/home/assets/recordDetails'})
     this.orderId = this.$route.query.orderId;
     // this.orderDetail(this.orderId);
   },

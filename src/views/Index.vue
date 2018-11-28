@@ -10,19 +10,19 @@
       <li>
         <div class="li_title">资产总估值</div>
         <div class="number">
-          <countTo :startVal="0" :endVal="assetsTotal" :duration="1000"></countTo><span class="company_span">{{company}}</span>
+          <countTo :startVal="0" :endVal="assetsTotal" :duration="800"></countTo><span class="company_span">{{company}}</span>
         </div>
       </li>
       <li>
         <div class="li_title">昨日订单总金额</div>
         <div class="number">
-          <countTo :startVal="0" :endVal="yesterdayTotal" :duration="1000"></countTo><span class="company_span">{{company}}</span>
+          <countTo :startVal="0" :endVal="yesterdayTotal" :duration="800"></countTo><span class="company_span">{{company}}</span>
         </div>
       </li>
       <li>
         <div class="li_title">今日订单总金额</div>
         <div class="number">
-          <countTo :startVal="0" :endVal="todayTotal" :duration="1000"></countTo><span class="company_span">{{company}}</span>
+          <countTo :startVal="0" :endVal="todayTotal" :duration="800"></countTo><span class="company_span">{{company}}</span>
         </div>
       </li>
       <li class="oder_total">
@@ -30,19 +30,19 @@
         <div class="number_box">
           <div class="number">
             <span>今日新增</span>
-            <countTo class="count_to" :startVal="0" :endVal="todayNews" :duration="1000"></countTo>
+            <countTo class="count_to" :startVal="0" :endVal="todayNews" :duration="800"></countTo>
           </div>
           <div class="number">
             <span>已取消</span>
-            <countTo class="count_to" :startVal="0" :endVal="cancelTotal" :duration="1000"></countTo>
+            <countTo class="count_to" :startVal="0" :endVal="cancelTotal" :duration="800"></countTo>
           </div>
           <div class="number">
             <span>待支付</span>
-            <countTo class="count_to" :startVal="0" :endVal="successTotal" :duration="1000"></countTo>
+            <countTo class="count_to" :startVal="0" :endVal="successTotal" :duration="800"></countTo>
           </div>
           <div class="number">
             <span>已完成</span>
-            <countTo class="count_to" :startVal="0" :endVal="paidTotal" :duration="1000"></countTo>
+            <countTo class="count_to" :startVal="0" :endVal="paidTotal" :duration="800"></countTo>
           </div>
         </div>
       </li>
@@ -67,17 +67,12 @@
         </ve-line>
       </div>
     </div>
-    <my-footer></my-footer>
   </div>
 </template>
    
 <script>
-import myFooter from '../components/Footer'
 export default {
   name : 'HomeCount',
-  components:{
-    myFooter
-  },
   data() {
     return {
       openNumber:false,

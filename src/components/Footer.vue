@@ -33,7 +33,7 @@ export default {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding-top: 60px;
+  // padding-top: 60px;
   color: @textColor8;
   font-size: 14px;
   ul {

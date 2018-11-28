@@ -123,17 +123,12 @@
         </el-table-column>
       </el-table>
     </div>
-    <my-footer></my-footer>
   </div>
 </template>
    
 <script>
-import myFooter from '../components/Footer'
 export default {
   name : 'Order',
-  components:{
-    myFooter
-  },
   data() {
     return {
       dateValue:'',
