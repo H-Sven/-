@@ -16,7 +16,7 @@
     </div>
     <!-- 绑定收款方式 -->
     <div class="dialog_box">
-      <el-dialog class="bank_model" title="添加收款方式" :visible.sync="modelPayAdd" width="30%" center :before-close="onCancel">
+      <el-dialog class="bank_model" title="添加收款方式" :visible.sync="modelPayAdd" width="550px" center :before-close="onCancel">
         <div class="model_content">
           <div class="model_add_box">
             <!-- 选择收款方式 -->
