@@ -66,6 +66,27 @@ Vue.filter('comdify', function (num, format) {//数字千分位过滤
   });
 });
 
+
+// 路由管理 ↓↓↓↓↓↓↓↓↓↓↓↓
+router.beforeEach((to, from, next) => {
+  if (to.meta.requireAuth) { // 判断该路由是否需要登录权限
+    if (store.state.login) { // 通过vuex state获取当前登录状态
+      next()
+    } else {
+      next(
+        { path: '/login', query: {} }
+      )
+    }
+  } else { //如果不需要正常跳转
+    next()
+  }
+
+})
+router.afterEach((to, from) => {
+  
+})
+// 路由管理 ↑↑↑↑↑↑↑↑↑↑↑↑
+
 new Vue({
   router,
   store,
