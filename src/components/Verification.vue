@@ -4,8 +4,8 @@
     <el-dialog class="now_model Verification_model" center  title="安全验证" :visible.sync="verification" :before-close="handleClose" width="450px">
       <div class="model_ipt">
         <div class="ipt_code_box">
-          <input class="my_input ipt_code" type="number" @mousewheel.prevent @DOMMouseScroll.prevent v-enter-number oninput="if(value.length>6)value=value.slice(0,6)"  :placeholder="`请输入验证码`" v-model="code" >
-          <span class="password_btn" @click="getCode"  :class="{'z-active': time > 0}">{{codeState}}</span>
+          <el-input v-model="code" type="number" placeholder="请输入验证码" oninput="if(value.length>6)value=value.slice(0,6)"></el-input>
+          <el-button class="code_btn" type="text" @click="getCode" :disabled="codeDisabled">{{codeState}}</el-button>
         </div>
         <div class="sell_tips">温馨提示：通过安全验证即可成功下单，不可取消订单。</div>
       </div>
@@ -28,6 +28,7 @@ export default {
       time: 0,
       timer: null,
       modelCodeError:'',
+      codeDisabled:false,
     }
   },
   created() {
@@ -36,8 +37,10 @@ export default {
   computed:{
     codeState: function() {
       if (this.time <= 0) {
+        this.codeDisabled = false;
         return '获取验证码';
       } else {
+        this.codeDisabled = true;
         var time = this.time;
         time = String(time);
         time = time.length < 2 ? "0" + time : time;
@@ -95,24 +98,10 @@ export default {
         height: 42px;
         line-height: 42px;
         position: relative;
-        .ipt_code {
-          width: 96%;
-          height: 100%;
-          border: 1px solid @inputBorder;
-          color: @textColor3;
-          padding-left: 15px;
-        }
-        .password_btn {
-          font-weight: 600;
-          color: @btnColor;
+        .code_btn {
           position: absolute;
           right: 10px;
           top: 0;
-          z-index: 1000;
-          cursor: pointer;
-        }
-        .password_btn.z-active {
-          color: @textColor9;
         }
       }
       .sell_tips {

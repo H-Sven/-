@@ -1,7 +1,10 @@
 <template>
   <div class="home_count">
     <div class="title">
-      <h4>整体情况<i class="iconfont icon-yanjing" @click="openNumber = !openNumber" :class="{'yanjing_active':openNumber}"></i></h4>
+      <h4>整体情况
+        <i class="iconfont icon-yanjing" v-if="openNumber" @click="openNumber = !openNumber" :class="{'yanjing_active':openNumber}"></i>
+        <i class="iconfont icon-yanjing1" v-if="!openNumber" @click="openNumber = !openNumber" :class="{'yanjing_active':openNumber}"></i>
+      </h4>
       <el-select class="company" v-model="company" placeholder="请选择">
         <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value"></el-option>
       </el-select>
@@ -10,19 +13,25 @@
       <li>
         <div class="li_title">资产总估值</div>
         <div class="number">
-          <countTo :startVal="0" :endVal="assetsTotal" :duration="800"></countTo><span class="company_span">{{company}}</span>
+          <countTo :startVal="0" v-show="openNumber" :endVal="assetsTotal" :duration="800"></countTo>
+          <span v-show="!openNumber">********&nbsp;</span>
+          <span class="company_span">{{company}}</span>
         </div>
       </li>
       <li>
         <div class="li_title">昨日订单总金额</div>
         <div class="number">
-          <countTo :startVal="0" :endVal="yesterdayTotal" :duration="800"></countTo><span class="company_span">{{company}}</span>
+          <countTo :startVal="0" v-show="openNumber" :endVal="yesterdayTotal" :duration="800"></countTo>
+          <span v-show="!openNumber">********&nbsp;</span>
+          <span class="company_span">{{company}}</span>
         </div>
       </li>
       <li>
         <div class="li_title">今日订单总金额</div>
         <div class="number">
-          <countTo :startVal="0" :endVal="todayTotal" :duration="800"></countTo><span class="company_span">{{company}}</span>
+          <countTo :startVal="0" v-show="openNumber" :endVal="todayTotal" :duration="800"></countTo>
+          <span v-show="!openNumber">********&nbsp;</span>
+          <span class="company_span">{{company}}</span>
         </div>
       </li>
       <li class="oder_total">
@@ -30,19 +39,23 @@
         <div class="number_box">
           <div class="number">
             <span>今日新增</span>
-            <countTo class="count_to" :startVal="0" :endVal="todayNews" :duration="800"></countTo>
+            <countTo class="count_to" :startVal="0" v-show="openNumber" :endVal="todayNews" :duration="800"></countTo>
+            <span class="count_to" v-show="!openNumber">*****&nbsp;</span>
           </div>
           <div class="number">
             <span>已取消</span>
-            <countTo class="count_to" :startVal="0" :endVal="cancelTotal" :duration="800"></countTo>
+            <countTo class="count_to" :startVal="0" v-show="openNumber" :endVal="cancelTotal" :duration="800"></countTo>
+            <span class="count_to" v-show="!openNumber">*****&nbsp;</span>
           </div>
           <div class="number">
             <span>待支付</span>
-            <countTo class="count_to" :startVal="0" :endVal="successTotal" :duration="800"></countTo>
+            <countTo class="count_to" :startVal="0" v-show="openNumber" :endVal="successTotal" :duration="800"></countTo>
+            <span class="count_to" v-show="!openNumber">*****&nbsp;</span>
           </div>
           <div class="number">
             <span>已完成</span>
-            <countTo class="count_to" :startVal="0" :endVal="paidTotal" :duration="800"></countTo>
+            <countTo class="count_to" :startVal="0" v-show="openNumber" :endVal="paidTotal" :duration="800"></countTo>
+            <span class="count_to" v-show="!openNumber">*****&nbsp;</span>
           </div>
         </div>
       </li>
@@ -75,7 +88,7 @@ export default {
   name : 'HomeCount',
   data() {
     return {
-      openNumber:false,
+      openNumber:true,
       company:'',
       options: [
         {value: 'CNY',label: 'CNY'}, 
@@ -134,9 +147,9 @@ export default {
       justify-content: space-between;
       border-bottom: 1px solid @titleBorder;
       padding-bottom: 10px;
-      .icon-yanjing {
+      .icon-yanjing,.icon-yanjing1 {
         margin-left: 10px;
-        font-size: 24px;
+        font-size: 20px;
         color: @textColor9;
         cursor: pointer;
       }

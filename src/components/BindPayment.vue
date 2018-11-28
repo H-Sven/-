@@ -31,26 +31,26 @@
             <div v-if="selectPay == 1">
               <div class="ipt_select ipt_ipt">
                 <span class="title">姓名</span>
-                <input class="my_input input_ipt" v-model="payName" type="text" :placeholder="`请输入绑定账号姓名`" oninput="if(value.length>15)value=value.slice(0,15)"></input>
+                <el-input v-model="payName" placeholder="请输入绑定账号姓名" :maxlength="15"></el-input>
               </div>
               <div class="ipt_select ipt_ipt">
                 <span class="title">开户银行</span>
-                <input class="my_input input_ipt" v-model="bankName" type="text" :placeholder="`请输入开户银行`" oninput="if(value.length>15)value=value.slice(0,15)"></input>
+                <el-input v-model="bankName" placeholder="请输入开户银行" :maxlength="15"></el-input>
               </div>
               <div class="ipt_select ipt_ipt">
                 <span class="title">开户支行</span>
-                <input class="my_input input_ipt" v-model="branchName" type="text" :placeholder="`请输入开户支行`" oninput="if(value.length>15)value=value.slice(0,15)"></input>
+                <el-input v-model="branchName" placeholder="请输入开户支行" :maxlength="15"></el-input>
               </div>
               <div class="ipt_select ipt_ipt">
                 <span class="title">银行卡账号</span>
-                <input class="my_input input_ipt" v-model="bankCardNo" type="text" :placeholder="`请输入银行卡账号`" oninput="if(value.length>30)value=value.slice(0,30)"></input>
+                <el-input v-model="bankCardNo" placeholder="请输入银行卡账号" type="number" oninput="if(value.length>30)value=value.slice(0,30)"></el-input>
               </div>
             </div>
             <!-- 支付宝和微信 -->
             <div v-if="selectPay == 2 || selectPay == 3">
               <div class="ipt_select ipt_ipt">
                 <span class="title">{{selectPay == 2 ? '支付宝' : '微信'}}</span>
-                <input class="my_input input_ipt" v-model="alipay_wechat" type="text" :placeholder="selectPay == 2 ? '请输入支付宝账号' : '请输入微信账号'" oninput="if(value.length>50)value=value.slice(0,50)"></input>
+                <el-input v-model="alipay_wechat" :placeholder="selectPay == 2 ? '请输入支付宝账号' : '请输入微信账号'" oninput="if(value.length>30)value=value.slice(0,30)"></el-input>
               </div>
               <div class="ipt_select ipt_ipt">
                 <span class="title">二维码</span>
@@ -72,8 +72,8 @@
             <div class="ipt_select ipt_ipt" v-if="selectPay">
               <span class="title">验证码</span>
               <div class="code_box">
-                <input class="my_input input_ipt code_ipt" @mousewheel.prevent @DOMMouseScroll.prevent @mousewheel.prevent @DOMMouseScroll.prevent v-model="code" step="0.0000000001" :placeholder="`请输入验证码`" v-enter-number2 type="number" oninput="if(value.length>6)value=value.slice(0,6)"></input>
-                <div class="code_btn btn_hover" @click="getCode"  :class="{'z-active': time > 0}">{{codeState}}</div>
+                <el-input v-model="code" :placeholder="`请输入验证码`"  type="number" oninput="if(value.length>6)value=value.slice(0,6)"></el-input>
+                <el-button class="code_btn" type="text" @click="getCode" :disabled="codeDisabled">{{codeState}}</el-button>
               </div>
             </div>
           </div>
@@ -138,6 +138,7 @@ export default {
       branchName:'',
       bankCardNo:'',
       code:'',
+      codeDisabled:false,
       time: 0,
       timer: null,
       tipModal:false,
@@ -151,8 +152,10 @@ export default {
   computed:{
     codeState: function() {
       if (this.time <= 0) {
+        this.codeDisabled = false;
         return '获取验证码';
       } else {
+        this.codeDisabled = true;
         var time = this.time;
         time = String(time);
         time = time.length < 2 ? "0" + time : time;
@@ -431,64 +434,24 @@ export default {
             margin-right: 20px;
           }
           .select_div {
-            width: 430px;
-            height: 46px;
-            line-height: 46px;
+            width: 100%;
+            height: 40px;
+            line-height: 40px;
             border-radius: 4px;
-            span {
-              padding-left: 15px;
-              color: @textColor9;
-            }
-            .ivu-select-selection,.ivu-select-selected-value,.ivu-select-placeholder {
-              height: 46px;
-              line-height: 46px !important;
-              text-align: left;
-            }
-            .ivu-select-selection {
-              background: @white !important;
-              // border: solid 1px @borderLineColor !important;
-            }
-            .ivu-select-selection:hover {
-              // border: solid 1px @borderHoverColor !important;
-            }
-          }
-          .title_select {
-            background-color: @bgColor;
-            border: 1px solid @inputBorder;
-          }
-          .input_ipt {
-            width: 430px;
-            height: 46px;
-            line-height: 46px;
-            padding-left: 15px;
           }
           .code_box {
-            display: flex;
-            align-items: center;
-            justify-content: flex-start;
-            .code_ipt {
-              width: 247px;
-            }
+            position: relative;
             .code_btn {
-              cursor: pointer;
-              position: relative;
-              left: 0;
-              width: 140px;
-              height: 46px;
-              line-height: 46px;
-              text-align: center;
-              color:@white;
-              background-color: @btnColor;
-              border-radius: 4px;
-              margin-left: 10px;
-            }
-            .code_btn.z-active {
-              color: @inputPlaceHolder;
+              width: 100px;
+              height: 40px;
+              position: absolute;
+              right: 10px;
+              top: 1px;
             }
           }
         }
         .el-upload {
-          width: 413px;
+          width: 400px;
           div {
             padding: 10px 0;
             .el-icon-upload {
